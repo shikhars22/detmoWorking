@@ -17,6 +17,10 @@ export async function getSpendingHeaderView(): Promise<HeaderViewType | null> {
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
     const companyId = userData?.CompanyDetailsID;
     const data = await fetcher(
       `${process.env.API_URL}/headerview/${companyId}`,
@@ -48,6 +52,11 @@ export async function getSpendingBySupplierfiltered({
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
 
     const params = new URLSearchParams();
@@ -85,6 +94,11 @@ export async function getSpendingBySupplier(): Promise<
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
     const data = await fetcher(
       `${process.env.API_URL}/spending/supplier/${companyId}`,
@@ -93,7 +107,7 @@ export async function getSpendingBySupplier(): Promise<
           Authorization: `Bearer ${token}`,
         },
         next: {
-          revalidate: 60,
+          revalidate: 0,
         },
       },
     );
@@ -115,6 +129,11 @@ export async function getSpendingByMonthFiltered({
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
 
     const params = new URLSearchParams();
@@ -152,6 +171,11 @@ export async function getSpendingByMonth(): Promise<
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
     const data = await fetcher(
       `${process.env.API_URL}/spending/month/${companyId}`,
@@ -183,6 +207,11 @@ export async function getSpendingByCommodityFiltered({
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
 
     const params = new URLSearchParams();
@@ -220,6 +249,11 @@ export async function getSpendingByCommodity(): Promise<
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
     const data = await fetcher(
       `${process.env.API_URL}/spending/commodity/${companyId}`,
@@ -251,6 +285,11 @@ export async function getSpendingByLocationFiltered({
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
 
     const params = new URLSearchParams();
@@ -288,6 +327,11 @@ export async function getSpendingByLocation(): Promise<
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
     const data = await fetcher(
       `${process.env.API_URL}/spending/location/${companyId}`,
@@ -322,6 +366,11 @@ export async function getSpendingByTopSupplierFiltered({
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
 
     const params = new URLSearchParams();
@@ -360,6 +409,11 @@ export async function getSpendingByTopSupplier(): Promise<{
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const companyId = userData?.CompanyDetailsID;
     const data = await fetcher(
       `${process.env.API_URL}/spending/top_supplier/${companyId}`,
@@ -385,6 +439,11 @@ export async function uploadCSV(formData: FormData): Promise<any> {
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const company_id = userData?.CompanyDetailsID;
     const file = formData.get("file") as File;
 
@@ -443,6 +502,11 @@ export async function downloadCSV(): Promise<any> {
   try {
     const token = await auth().getToken();
     const userData = await getUserDetail();
+
+    if (!userData) {
+      throw new Error("Failed to get user data");
+    }
+
     const company_id = userData?.CompanyDetailsID;
     const res = await fetch(
       `${process.env.API_URL}/download/csv/${company_id}`,

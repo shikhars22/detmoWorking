@@ -1118,6 +1118,8 @@ async def download_csv(
 def summary_counts(
     company_id: str, current_user: UserDetails = Depends(get_current_active_user)
 ):
+    if not company_id or company_id == "undefined":
+        raise HTTPException(status_code=400, detail="Invalid company_id")
     query = text(
         """
         SELECT * FROM public.headerview
@@ -1159,6 +1161,9 @@ def get_supplier_spend_with_dates(
     current_user: UserDetails = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    if not company_id or company_id == "undefined":
+        raise HTTPException(status_code=400, detail="Invalid company_id")
+
     # Base query
     query = """
     SELECT 
@@ -1232,6 +1237,8 @@ def get_month_spend_with_dates(
     current_user: UserDetails = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    if not company_id or company_id == "undefined":
+        raise HTTPException(status_code=400, detail="Invalid company_id")
     # Base query matching the view's logic exactly
     query = """
     SELECT 
@@ -1321,6 +1328,8 @@ def get_commodity_spend_with_dates(
     current_user: UserDetails = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    if not company_id or company_id == "undefined":
+        raise HTTPException(status_code=400, detail="Invalid company_id")
     # Base CTE for total spend calculation
     query = """
     WITH totalspend AS (
@@ -1421,6 +1430,8 @@ def get_location_spend_with_dates(
     current_user: UserDetails = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    if not company_id or company_id == "undefined":
+        raise HTTPException(status_code=400, detail="Invalid company_id")
     # Base query matching the view's logic exactly
     query = """
     SELECT 
@@ -1502,6 +1513,8 @@ def get_top_supplier_spend_with_dates(
     current_user: UserDetails = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    if not company_id or company_id == "undefined":
+        raise HTTPException(status_code=400, detail="Invalid company_id")
     # Validate pagination parameters
     if skip < 0:
         raise HTTPException(

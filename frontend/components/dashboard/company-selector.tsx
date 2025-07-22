@@ -81,9 +81,9 @@ export default function CompanySelector() {
         return null;
       });
 
-      if (!allCompanies) {
-        setFetchError("companies list is null");
-        return;
+      if (allCompanies === null) {
+        setFetchError("Failed to load companies refetching");
+        fetchCompanyData();
       }
 
       // Then fetch user's specific company (but don't fail completely if this fails)
@@ -122,7 +122,7 @@ export default function CompanySelector() {
     }
   }, [isUserLoaded, fetchCompanyData]);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const timer = setTimeout(() => {
       if (isLoading) {
         setIsLoading(false);
@@ -131,7 +131,7 @@ export default function CompanySelector() {
     }, 10000); // 10 second timeout
 
     return () => clearTimeout(timer);
-  }, [isLoading]);
+  }, [isLoading]); */
 
   // Memoize the create company handler
   const handleCreateCompany = useCallback(async () => {

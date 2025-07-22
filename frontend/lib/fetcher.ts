@@ -1,4 +1,4 @@
-/* export async function fetcher<JSON = any>(
+export async function fetcher<JSON = any>(
   input: RequestInfo,
   init: RequestInit = {
     next: {
@@ -13,9 +13,9 @@
   }
 
   return res.json();
-} */
+}
 // lib/fetcher.ts
-export async function fetcher(url: string, options?: RequestInit) {
+/* export async function fetcher(url: string, options?: RequestInit) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 10000); // 10s timeout
 
@@ -34,4 +34,4 @@ export async function fetcher(url: string, options?: RequestInit) {
   } finally {
     clearTimeout(timeout);
   }
-}
+} */
