@@ -176,13 +176,11 @@ export function useUpdateUserCompany() {
       return response.json();
     },
     onSuccess: async (data) => {
-      if (data?.success) {
-        // Invalidate all relevant queries
-        queryClient.invalidateQueries({ queryKey: ["companyDetails"] });
+      // Invalidate all relevant queries
+      queryClient.invalidateQueries({ queryKey: ["companyDetails"] });
 
-        // Reload Clerk user data
-        await user?.reload();
-      }
+      // Reload Clerk user data
+      await user?.reload();
     },
   });
 }

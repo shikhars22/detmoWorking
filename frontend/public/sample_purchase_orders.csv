@@ -1,0 +1,14 @@
+CommodityName,PartNumber,DocumentDate,VendorName,MaterialGroupNumber,MaterialGroupDescription,OrderQuantity,NetPrice,Currency,ToBeDeliveredQty,Location,Country
+Fan,33410403,12/01/2024,Vendor 1,306,Machined Parts,1,2976.47,USD,-1,mohali,IND
+Fan,33410403,13/02/2024,Vendor 2,306,Machined Parts,1,2976.47,USD,1,mohali,IND
+Fan,33410403,14/02/2024,Vendor 3,306,Machined Parts,10,2976.47,USD,-10,mohali,IND
+Fan,33410403,15/02/2024,Vendor 4,306,Machined Parts,10,2976.47,USD,10,Miami,USA
+Heater,33616809,16/03/2024,Vendor 5,306,Machined Parts,10,123123,USD,10,Miami,USA
+Pump,33616810,17/03/2024,Vendor 6,306,Machined Parts,1,169.41,USD,1,Miami,USA
+Screw 1,38665901,18/03/2024,Vendor 7,306,Machined Parts,10,170.27,USD,10,Miami,USA
+Screw 2,20203656B,19/04/2024,Vendor 8,382,Commercial Parts,20,76.5,USD,20,Miami,USA
+Screw 3,32007609C,20/05/2024,Vendor 9,382,Commercial Parts,10,372.15,USD,10,Miami,USA
+Lid cap,32010056C-2,21/06/2024,Vendor 10,306,Machined Parts,400,0.99,USD,4,Auckland,NZ
+ESC Chuck,32074123B-3,22/06/2024,Vendor 1,382,Commercial Parts,200,24.5,USD,20,Auckland,NZ
+Condenser,32075012B-1,23/06/2024,Vendor 1,376,Fab-Purchased,99,95,USD,10,Auckland,NZ
+ESC Chuck,32176113D-2,24/07/2024,Vendor 1,306,Machined Parts,20,173,USD,1,Auckland,NZ

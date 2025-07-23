@@ -9,6 +9,11 @@ import { useHeaderView } from "./react-query-fetchs";
 
 const HeaderView = () => {
   const { data: header_view } = useHeaderView();
+
+  if (!header_view || Object.keys(header_view).length === 0) {
+    throw new Error("Header view cannot be empty");
+  }
+
   return header_view ? (
     <div className="gap-4 grid grid-cols-1 sm:grid-cols-3 sm:col-span-3 xl:grid-cols-5 xl:col-span-5 mb-4">
       <CardHeaders
@@ -182,7 +187,7 @@ const HeaderView = () => {
   ) : (
     <div className="grid grid-cols-1 mb-4">
       <CardHeaders
-        description="Error getting data"
+        description="No data available"
         Icon={
           <span>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

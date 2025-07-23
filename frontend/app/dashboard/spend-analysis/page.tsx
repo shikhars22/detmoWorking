@@ -72,7 +72,7 @@ const SpendAnalysis = async ({
   } */
 
   return (
-    <div className="w-full bg-[#F6F6F6] p-4 lg:gap-6 lg:p-6 h-full">
+    <div className="w-full min-h-full bg-[#F6F6F6] p-4 lg:gap-6 lg:p-6 h-full">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -89,14 +89,12 @@ const SpendAnalysis = async ({
 
       {/* cards */}
       <div className="">
-        <ErrorBoundaryCustom>
-          <Suspense
-            fallback={<HeaderViewLoading />}
-            key={`1-${startDate}-${endDate}`}
-          >
-            <HeaderView />
-          </Suspense>
-        </ErrorBoundaryCustom>
+        <Suspense
+          fallback={<HeaderViewLoading />}
+          key={`1-${startDate}-${endDate}`}
+        >
+          <HeaderView />
+        </Suspense>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-white rounded-[12px]">
             <h2 className="text-[#8A8A8A] text-[18px] font-[400] p-5 pl-8 pt-7">

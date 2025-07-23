@@ -29,5 +29,5 @@ export default function ProjectsLayout({
     }
   }, [searchParams, router]);
 
-  return <>{children}</>;
+  return children;
 }

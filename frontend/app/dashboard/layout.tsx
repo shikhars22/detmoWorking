@@ -38,7 +38,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
 
       <main
         className={cn(
-          "flex flex-1 flex-col transition-[margin-left] duration-500 delay-0 ease-in-out",
+          "flex flex-1 flex-col min-h-screen transition-[margin-left] duration-500 delay-0 ease-in-out",
           isOpen ? "lg:ml-[280px]" : "lg:ml-0",
         )}
       >
@@ -173,7 +173,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
             <UserButton afterSignOutUrl="/" />{" "}
           </div>
         </header>
-        {children}
+        <div className="grow flex flex-col">{children}</div>
         <RefreshSessionOnLogin />
       </main>
     </section>

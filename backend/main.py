@@ -1133,10 +1133,7 @@ def summary_counts(
         raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
     if df.empty:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Company with ID {company_id} doesn't have any data at headerview",
-        )
+        return {}
 
     summary = {
         "company_id": str(df["Company ID"].iloc[0]),
