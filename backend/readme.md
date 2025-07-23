@@ -17,8 +17,8 @@
 4. Unzip the file and run ngrok.exe
 5. Type following commands in the terminal
 
+### ngrok Commands
     ngrok config add-authtoken YOUR_AUTH_TOKEN
-
     ngrok http http://localhost:8000
 
 ## To run the backend application
