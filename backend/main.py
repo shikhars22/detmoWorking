@@ -3,7 +3,7 @@ import hashlib
 import hmac
 import logging
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from io import StringIO
 from typing import List, Optional
 
@@ -2607,15 +2607,19 @@ async def create_subscription(
                 logger.error(f"Error creating Razorpay customer: {str(e)}")
 
         plan_id = os.getenv("SUBSCRIPTION_PLAN_ID", "")
+        try:
+            expire_by = int((datetime.now(timezone.utc) + timedelta(hours=24)).timestamp())
+        except Exception as e:
+            print(f"Error calculating timestamp: {e}")
+            expire_by = int(datetime.now(timezone.utc).timestamp()) + 86400 
+
         # Create subscription in Razorpay
         razorpay_subscription = razorpay_client.subscription.create(
             {
                 "plan_id": plan_id if plan_id != "" else "plan_QuVYrS2WgFKSL7",
                 "customer_notify": 1,
                 "total_count": 100,
-                "start_at": int(
-                    (datetime.utcnow() + timedelta(days=1)).timestamp()
-                ),
+                "expire_by": expire_by,
                 "customer_id": razorpay_customer_id,
                 "notes": {
                     "payer_id": current_user.ClerkID,
@@ -2631,8 +2635,6 @@ async def create_subscription(
             RazorpaySubscriptionID=razorpay_subscription["id"],
             RazorpayCustomerID=razorpay_customer_id,
             Status=razorpay_subscription["status"],
-            StartDate=datetime.fromtimestamp(razorpay_subscription["start_at"]),
-            EndDate=datetime.fromtimestamp(razorpay_subscription["end_at"]),
             CreatedAt=datetime.utcnow(),
         )
         db.add(db_subscription)
@@ -2642,6 +2644,7 @@ async def create_subscription(
         # Return the subscription details and payment link
         return {
             "subscription": db_subscription,
+            "currency": subscription.currency,
             "payment_page_url": razorpay_subscription.get("short_url"),
         }
     except Exception as e:
@@ -2769,7 +2772,7 @@ async def handle_subscription_event(db: Session, payload: dict, event: str):
         subscription.StartDate = datetime.fromtimestamp(subscription_data["start_at"])
         subscription.EndDate = datetime.fromtimestamp(subscription_data["end_at"])
     elif event == "subscription.pending":
-        subscription.Status = "active"
+        subscription.Status = "pending"
     elif event in [
         "subscription.cancelled",
         "subscription.completed",
@@ -2779,8 +2782,14 @@ async def handle_subscription_event(db: Session, payload: dict, event: str):
         db.delete(subscription)
         logger.info(f"Deleted {event} subscription {subscription_id}")
         await update_beneficiary_status(db, beneficiary_id, False)
-
+    elif event == "subscription.paused":
+        subscription.Status = "pending"
+        await update_beneficiary_status(db, subscription.BeneficiaryID, False)
+    elif event == "subscription.resumed":
+        subscription.Status = "active"
+        await update_beneficiary_status(db, subscription.BeneficiaryID, True)
     elif event == "subscription.charged":
+        subscription.Status = "active"
         await handle_subscription_payment(db, payload, subscription)
 
 

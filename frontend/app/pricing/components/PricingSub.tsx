@@ -93,7 +93,7 @@ export function Pricing() {
           },
           body: JSON.stringify({
             beneficiary_id: userId || user?.id,
-            amount: 100.0,
+            amount: 10.0,
             currency: "INR",
           }),
         },
@@ -105,7 +105,8 @@ export function Pricing() {
         throw new Error(errorData.detail || "Payment creation failed");
       }
 
-      const data = (await response.json()).subscription;
+      const jsonData = await response.json();
+      const data = jsonData.subscription;
       toast.success("Redirecting to payment...", { id: paymentToast });
 
       // Initialize Razorpay payment
@@ -113,7 +114,7 @@ export function Pricing() {
         const options = {
           key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID!,
           // amount: data?.amount || 100,
-          currency: data?.currency || "INR",
+          currency: jsonData?.currency || "INR",
           name: "Detmo",
           description: "Monthly Subscription",
           image: "/logo.svg",

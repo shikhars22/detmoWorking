@@ -378,8 +378,8 @@ class PaymentSubscription(Base):
     Status = Column(
         String(50), default="created"
     )  # created, active, paused, cancelled, expired
-    StartDate = Column(DateTime)
-    EndDate = Column(DateTime)
+    StartDate = Column(DateTime, nullable=True)
+    EndDate = Column(DateTime, nullable=True)
     NextBillingDate = Column(DateTime)
     CreatedAt = Column(DateTime, default=datetime.utcnow)
     UpdatedAt = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
