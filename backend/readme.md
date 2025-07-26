@@ -21,5 +21,7 @@
     ngrok config add-authtoken YOUR_AUTH_TOKEN
     ngrok http http://localhost:8000
 
+#### Copy the forwarding url and paste it in clerk and razorpay
+
 ## To run the backend application
     uvicorn main:app --host 0.0.0.0 --port 8000
