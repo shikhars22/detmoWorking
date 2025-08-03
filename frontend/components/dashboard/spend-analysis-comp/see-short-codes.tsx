@@ -15,7 +15,7 @@ const SeeShortCodes = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="text-xs px-2 py-1 focus:outline-none h-auto border rounded-md border-primary text-primary">
+        <button className="text-xs px-2 py-1 min-w-fit focus:outline-none h-auto border rounded-md border-primary text-primary">
           Country Codes
         </button>
       </DialogTrigger>

@@ -58,7 +58,11 @@ export const DEFAULT_COMPANY: CompanyDetailsType = {
   },
 };
 
-export default function CompanySelector() {
+export default function CompanySelector({
+  isMobile = false,
+}: {
+  isMobile?: boolean;
+}) {
   const { data: allCompanies } = useCompanyDetails();
   const { data: company } = useUserCompanyDetails();
 
@@ -175,7 +179,7 @@ export default function CompanySelector() {
   } */
 
   return (
-    <div className="px-4 mb-4">
+    <div className={`mb-4 ${isMobile ? "px-1" : "px-4"}`}>
       <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

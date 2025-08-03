@@ -21,6 +21,10 @@ import { Toaster } from "react-hot-toast";
 import { useCollapsibleStore } from "@/store/usecollapse";
 import { RefreshSessionOnLogin } from "@/components/RefreshSessionOnLogin";
 import { RoleType } from "@/lib/types";
+import { ErrorBoundaryCustom } from "@/components/dashboard/ErrorBoundary";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import CompanySelector from "@/components/dashboard/company-selector";
 
 export default function Dashboard({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -57,10 +61,22 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="flex flex-col">
-              <nav className="grid gap-2 text-lg font-medium">
+              <nav className="flex flex-col gap-2 text-lg font-medium">
                 <Link href="/" className="flex items-center gap-3 mb-4">
                   <Image src="/logo.svg" alt="logo" width={170} height={100} />
                 </Link>
+
+                <ErrorBoundaryCustom>
+                  <Suspense
+                    fallback={
+                      <div className="px-4 mb-4">
+                        <Skeleton className="h-10 w-full" />
+                      </div>
+                    }
+                  >
+                    <CompanySelector isMobile />
+                  </Suspense>
+                </ErrorBoundaryCustom>
                 <Link
                   href="/dashboard/spend-analysis"
                   className={cn(
@@ -75,13 +91,8 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                 <Link
                   href="/dashboard/projects"
                   className={cn(
-                    "flex items-center gap-3 rounded-lg px-1 py-2 transition-all",
-                    isPaid
-                      ? "text-muted-foreground hover:text-primary"
-                      : "text-muted opacity-50 cursor-not-allowed pointer-events-none",
-                    pathname.includes("/projects") &&
-                      isPaid &&
-                      "bg-muted text-primary",
+                    "flex items-center gap-3 rounded-lg px-1 py-2 text-muted-foreground transition-all hover:text-primary",
+                    pathname.includes("/projects") && "bg-muted text-primary",
                   )}
                 >
                   <Package className="h-4 w-4" />
@@ -91,13 +102,8 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                 <Link
                   href="/dashboard/settings"
                   className={cn(
-                    "flex items-center gap-3 rounded-lg px-1 py-2 transition-all",
-                    isAdmin
-                      ? "text-muted-foreground hover:text-primary"
-                      : "text-muted opacity-50 cursor-not-allowed pointer-events-none",
-                    pathname.includes("/settings") &&
-                      isAdmin &&
-                      "bg-muted text-primary",
+                    "flex items-center gap-3 rounded-lg px-1 py-2 text-muted-foreground transition-all hover:text-primary",
+                    pathname.includes("/settings") && "bg-muted text-primary",
                   )}
                 >
                   <SettingsIcon className="h-4 w-4" />

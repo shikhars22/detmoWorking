@@ -154,7 +154,7 @@ const UploadCSVDialog = ({ text }: { text?: string }) => {
   return (
     <Dialog open={isDialogOpen} onOpenChange={handleDialogChange}>
       <DialogTrigger asChild>
-        <Button size={"sm"} className="mx-auto px-7 h-[35px]">
+        <Button size={"sm"} className="mx-auto w-full sm:w-auto px-7 h-[35px]">
           {" "}
           <UploadIcon className="w-5 h-5 mr-2" /> {text ?? "Upload POs"}
         </Button>

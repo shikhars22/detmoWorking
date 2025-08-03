@@ -44,12 +44,12 @@ const SpendActions = () => {
   };
 
   return (
-    <div className=" flex md:flex-row flex-col justify-between items-center gap-4 py-4 mb-2.5">
+    <div className="flex md:flex-row flex-col justify-between items-center gap-4 py-4 mb-2.5">
       <h1 className=" md:text-3xl sm:text-2xl text-xl font-medium min-w-fit">
         Spend Analysis
       </h1>
-      <div className="flex gap-4 md:flex-row flex-col flex-wrap">
-        <div className=" flex gap-x-4 justify-center items-center">
+      <div className="flex gap-4 md:flex-row items-center justify-end flex-col flex-wrap">
+        <div className="flex flex-col gap-4 sm:flex-row justify-center flex-wrap sm:items-center">
           <SeeShortCodes />
 
           <UploadCSVDialog />
