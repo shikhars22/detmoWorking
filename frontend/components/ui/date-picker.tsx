@@ -21,7 +21,7 @@ import {
 export default function DatePickerComponent({
   dateValue,
   dateName,
-  // onDateChange,
+  onDateChange,
   placeholder = "Pick a date",
   style,
   icon,
@@ -29,7 +29,7 @@ export default function DatePickerComponent({
 }: {
   dateValue: string;
   dateName: string;
-  // onDateChange: (date: Date | undefined) => void;
+  onDateChange?: (date: Date | undefined) => void;
   placeholder?: string;
   style?: string;
   icon?: boolean;
@@ -44,6 +44,10 @@ export default function DatePickerComponent({
       ...prev,
       [dateName]: date ? format(date, "yyyy-MM-dd") : "",
     }));
+
+    if (onDateChange) {
+      onDateChange(date);
+    }
   }, [date, setParams]);
 
   return (

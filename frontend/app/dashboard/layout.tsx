@@ -168,7 +168,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
               href={
                 role?.includes("paid")
                   ? "/dashboard/projects/create"
-                  : "/pricing"
+                  : "/pricing?next=/dashboard/projects/create"
               }
               className="hidden sm:block"
             >

@@ -14,7 +14,7 @@ import { CheckIcon } from "../icons/Icons";
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useAuth } from "@clerk/nextjs";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 
 export const ListItem = (props: StackProps) => {
@@ -28,8 +28,12 @@ export const ListItem = (props: StackProps) => {
 };
 
 export function Pricing() {
+  const router = useRouter();
   const searchParams = useSearchParams();
+
   const userId = searchParams.get("user_id") ?? "";
+  const next = searchParams.get("next") ?? "/dashboard/spend-analysis";
+
   const [loading, setLoading] = useState(false);
   const [beneficiaryEmail, setBeneficiaryEmail] = useState("");
   const { getToken } = useAuth();
@@ -126,6 +130,8 @@ export function Pricing() {
               `Payment successful! ID: ${response.razorpay_payment_id}`,
               { duration: 5000 },
             );
+
+            router.push(next);
           },
           prefill: {
             name: user?.fullName || "",
