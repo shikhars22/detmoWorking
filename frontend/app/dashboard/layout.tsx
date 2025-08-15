@@ -30,7 +30,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { isOpen, onOpen, onClose } = useCollapsibleStore();
 
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   const role: RoleType = user?.publicMetadata?.role as RoleType;
   const isPaid = role?.includes("paid");
@@ -110,24 +110,26 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                   Settings
                 </Link>
               </nav>
-              <div className="mt-auto">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Upgrade to Pro</CardTitle>
-                    <CardDescription>
-                      Unlock all features and get unlimited access to our
-                      support team.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Link href="/pricing" target="_blank">
-                      <Button size="sm" className="w-full">
-                        Upgrade
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              </div>
+              {isLoaded && !isPaid && (
+                <div className="mt-auto p-4">
+                  <Card x-chunk="dashboard-02-chunk-0">
+                    <CardHeader className="p-2 pt-0 md:p-4">
+                      <CardTitle>Upgrade to Pro</CardTitle>
+                      <CardDescription>
+                        Unlock all features and get unlimited access to our
+                        support team.
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-2 pt-0 md:p-4 md:pt-0">
+                      <Link href="/pricing" target="_blank">
+                        <Button size="sm" className="w-full">
+                          Upgrade
+                        </Button>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                </div>
+              )}
             </SheetContent>
           </Sheet>
           <Button
