@@ -282,8 +282,10 @@ export async function updateUserRole(
       },
     );
 
-    if (res.ok) return { success: true };
-    else throw new Error(res.statusText);
+    if (res.ok) {
+      revalidatePath("/dashboard/settings/users");
+      return { success: true };
+    } else throw new Error(res.statusText);
   } catch (error) {
     console.error(error);
   }

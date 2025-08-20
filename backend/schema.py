@@ -68,12 +68,12 @@ class SourcingProjectCreate(BaseModel):
     EndDate: Optional[date]
     Phase: str
     Status: str
-    SourcingPmEmail: Optional[EmailStr]
-    ScmManagerEmail: Optional[EmailStr]
-    SelectedSupplierPmEmail: Optional[EmailStr]
-    BuyerEmail: Optional[EmailStr]
-    ProjectSponserEmail: Optional[EmailStr]
-    FinancePocEmail: Optional[EmailStr]
+    SourcingPmEmail: Optional[str]
+    ScmManagerEmail: Optional[str]
+    SelectedSupplierPmEmail: Optional[str]
+    BuyerEmail: Optional[str]
+    ProjectSponserEmail: Optional[str]
+    FinancePocEmail: Optional[str]
     ProjectInterval: Optional[str]
 
     CommodityName: str
@@ -91,12 +91,12 @@ class SourcingProjectUpdate(BaseModel):
     EndDate: Optional[date]
     Phase: Optional[str]
     Status: Optional[str]
-    SourcingPmEmail: Optional[EmailStr]
-    ScmManagerEmail: Optional[EmailStr]
-    SelectedSupplierPmEmail: Optional[EmailStr]
-    BuyerEmail: Optional[EmailStr]
-    ProjectSponserEmail: Optional[EmailStr]
-    FinancePocEmail: Optional[EmailStr]
+    SourcingPmEmail: Optional[str]
+    ScmManagerEmail: Optional[str]
+    SelectedSupplierPmEmail: Optional[str]
+    BuyerEmail: Optional[str]
+    ProjectSponserEmail: Optional[str]
+    FinancePocEmail: Optional[str]
     ProjectInterval: Optional[str]
     CommodityName: Optional[str]
     CommodityAffectedProduct: Optional[str]
@@ -136,14 +136,12 @@ class SourcingProjectDetailsResponse(BaseModel):
     EndDate: Optional[date] = Field(None, example=date(2024, 8, 1))
     Phase: Optional[str] = Field(None, example="Example Phase")
     Status: Optional[str] = Field(None, example="Example Status")
-    SourcingPmEmail: Optional[EmailStr] = Field(None, example="sourcing@example.com")
-    ScmManagerEmail: Optional[EmailStr] = Field(None, example="scm@example.com")
-    SelectedSupplierPmEmail: Optional[EmailStr] = Field(
-        None, example="supplier@example.com"
-    )
-    BuyerEmail: Optional[EmailStr] = Field(None, example="buyer@example.com")
-    ProjectSponserEmail: Optional[EmailStr] = Field(None, example="sponsor@example.com")
-    FinancePocEmail: Optional[EmailStr] = Field(None, example="finance@example.com")
+    SourcingPmEmail: Optional[str] = Field(None, example="sourcing@example.com")
+    ScmManagerEmail: Optional[str] = Field(None, example="scm@example.com")
+    SelectedSupplierPmEmail: Optional[str] = Field(None, example="supplier@example.com")
+    BuyerEmail: Optional[str] = Field(None, example="buyer@example.com")
+    ProjectSponserEmail: Optional[str] = Field(None, example="sponsor@example.com")
+    FinancePocEmail: Optional[str] = Field(None, example="finance@example.com")
     ProjectInterval: Optional[str] = Field(None, example="Interval A")
     CompanyDetailsID: Optional[str] = Field(
         None, example="08046a66-63a8-428a-975a-b73271aab1b7"

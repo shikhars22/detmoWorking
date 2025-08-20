@@ -27,7 +27,7 @@ function Calendar({
 }: CalendarProps) {
   const [{ startDate }] = useQueryStates(searchParams, searchParamOption);
 
-  const disabledDays: any = { after: new Date() };
+  const disabledDays: any = {};
   if (isEndDate) {
     disabledDays["before"] = startDate;
   }

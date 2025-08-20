@@ -792,7 +792,7 @@ async def update_user_role_by_admin(
 ):
     db_company = (
         db.query(CompanyDetailsInfo)
-        .filter(CompanyDetailsInfo.CompanyDetailsID == user_data["company_id"])
+        .filter(CompanyDetailsInfo.CompanyDetailsID == current_user.CompanyDetailsID)
         .first()
     )
 
@@ -800,13 +800,15 @@ async def update_user_role_by_admin(
         raise HTTPException(status_code=404, detail="Company not found")
 
     company_user = ensure_company_user_relation(
-        db, user_id=current_user.ClerkID, company_id=user_data["company_id"]
+        db, user_id=current_user.ClerkID, company_id=current_user.CompanyDetailsID
     )
     db.commit()
     if company_user.RoleID != ADMIN_ROLE_ID:
         raise HTTPException(status_code=403, detail="Not enough permissions")
 
     db_user = db.query(UserDetails).filter(UserDetails.ClerkID == user_id).first()
+    if db_user.DefaultCompanyDetailsID == current_user.CompanyDetailsID:
+        raise HTTPException(status_code=403, detail="Not enough permissions")
 
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -817,7 +819,7 @@ async def update_user_role_by_admin(
     get_company_user_relation(
         db,
         user_id=db_user.ClerkID,
-        company_id=user_data["company_id"],
+        company_id=current_user.CompanyDetailsID,
         role_name=user_data["role"],
     )
 

@@ -51,6 +51,8 @@ export default function Createprojectform({
     searchParamOption,
   );
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const project = use(project_promise)?.items[0];
 
   React.useEffect(() => {
@@ -90,12 +92,32 @@ export default function Createprojectform({
     Status: z.string().min(1, {
       message: "Status is required.",
     }),
-    SourcingPmEmail: z.string().email(),
-    ScmManagerEmail: z.string().email(),
-    SelectedSupplierPmEmail: z.string().email(),
-    BuyerEmail: z.string().email(),
-    ProjectSponserEmail: z.string().email(),
-    FinancePocEmail: z.string().email(),
+    SourcingPmEmail: z
+      .string()
+      .email("Invalid email")
+      .optional()
+      .or(z.literal("")),
+    ScmManagerEmail: z
+      .string()
+      .email("Invalid email")
+      .optional()
+      .or(z.literal("")),
+    SelectedSupplierPmEmail: z
+      .string()
+      .email("Invalid email")
+      .optional()
+      .or(z.literal("")),
+    BuyerEmail: z.string().email("Invalid email").optional().or(z.literal("")),
+    ProjectSponserEmail: z
+      .string()
+      .email("Invalid email")
+      .optional()
+      .or(z.literal("")),
+    FinancePocEmail: z
+      .string()
+      .email("Invalid email")
+      .optional()
+      .or(z.literal("")),
     ProjectInterval: z.string(),
     CommodityName: z.string(),
     CommodityAffectedProduct: z.string(),
@@ -119,6 +141,10 @@ export default function Createprojectform({
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsSubmitting(true);
+
+    const toastId = toast.loading("Submitting...");
+
     const res = await updateProject(project_id, values);
 
     if (res?.success) {
@@ -126,6 +152,9 @@ export default function Createprojectform({
     } else {
       toast.error("Something went wrong");
     }
+
+    setIsSubmitting(false);
+    toast.dismiss(toastId);
     router.push(
       `/dashboard/projects/evaluate-suppliers?project_id=${project_id}`,
     );
@@ -643,6 +672,7 @@ export default function Createprojectform({
                   <Button
                     variant={"outline"}
                     className="h-[38px] border-primary text-[14px] text-primary font-[500]"
+                    disabled={isSubmitting}
                   >
                     Save as draft
                   </Button>
@@ -650,6 +680,7 @@ export default function Createprojectform({
                     variant={"default"}
                     type="submit"
                     className="h-[38px] text-[14px] font-[500]"
+                    disabled={isSubmitting}
                     // disabled
                   >
                     Evaluate Suppliers
