@@ -96,9 +96,20 @@ const Subscription = ({ data }: { data: any }) => {
         );
       case "pending":
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-            Pending
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+              Pending
+            </span>
+
+            {isPayer && (
+              <Link
+                href={`/pricing?user_id=${ClerkID}`}
+                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 hover:bg-red-200 transition-colors"
+              >
+                Pay
+              </Link>
+            )}
+          </div>
         );
       case "cancelled":
         return (

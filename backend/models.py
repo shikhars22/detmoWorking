@@ -1,18 +1,8 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Date,
-    DateTime,
-    Float,
-    ForeignKey,
-    Index,
-    Integer,
-    String,
-    UniqueConstraint,
-)
+from sqlalchemy import (Boolean, Column, Date, DateTime, Float, ForeignKey,
+                        Index, Integer, String, UniqueConstraint)
 from sqlalchemy.orm import registry, relationship
 
 from database import Base
@@ -420,6 +410,8 @@ class PaymentSubscription(Base):
     NextBillingDate = Column(DateTime)
     CreatedAt = Column(DateTime, default=datetime.utcnow)
     UpdatedAt = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    Amount = Column(Integer, nullable=True)
+    Currency = Column(String(10), default="INR")
 
     Payer = relationship(
         "UserDetails", foreign_keys=[PayerID], back_populates="SubscriptionsPaid"

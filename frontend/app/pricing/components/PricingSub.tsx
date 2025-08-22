@@ -105,7 +105,6 @@ export function Pricing() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.log({ errorData });
         throw new Error(errorData.detail || "Payment creation failed");
       }
 
@@ -151,6 +150,13 @@ export function Pricing() {
 
         const rzp = new (window as any).Razorpay(options);
         rzp.on("payment.failed", function (response: any) {
+          if (
+            response.error.description.includes(
+              "Beneficiary already has an active subscription",
+            )
+          ) {
+            toast.success(`Subscription already paid for!`, { duration: 5000 });
+          }
           toast.error(`Payment failed: ${response.error.description}`);
         });
         rzp.open();
@@ -195,7 +201,7 @@ export function Pricing() {
               Full-access
             </Text>
             <Heading as="h3" fontSize={["5xl", "5xl", "6xl"]} mt="4">
-              $39 or ₹3199
+              $39 or ₹3397
             </Heading>
             <Text color="gray.900" fontSize="lg" fontWeight="medium" mt="2">
               per user per month

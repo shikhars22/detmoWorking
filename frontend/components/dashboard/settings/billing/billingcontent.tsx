@@ -31,6 +31,8 @@ type billingTabData = {
   Status: string;
   SubscriptionID: string;
   UpdatedAt?: string;
+  Amount?: number;
+  Currency?: string;
 };
 
 const billingColumn: ColumnDef<billingTabData>[] = [
@@ -78,9 +80,12 @@ const billingColumn: ColumnDef<billingTabData>[] = [
         <div className="font-[700] text-[14px] text-[#8A8A8A]">Amount</div>
       );
     },
-    cell: () => {
+    cell: ({ row }) => {
+      const data = row.original;
       return (
-        <div className="font-[400] text-[14px] text-[#3B3C41]">3900rs</div>
+        <div className="font-[400] text-[14px] text-[#3B3C41]">
+          {`${data.Amount ?? 3397.95} ${data.Currency ?? "INR"}`}
+        </div>
       );
     },
   },
@@ -224,8 +229,6 @@ const billingColumn: ColumnDef<billingTabData>[] = [
 
 const BillingContent: FC<Props> = ({}) => {
   const { data: billingTableData } = useSubscriptionDetails();
-
-  console.log({ billingTableData });
 
   return (
     <div className="p-4 lg:p-7 lg:lg:px-10 xl:px-20  max-w-[1400px] lg:pt-[40px]">

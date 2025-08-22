@@ -348,6 +348,8 @@ class SubscriptionResponse(BaseModel):
     CreatedAt: datetime
     UpdatedAt: datetime
     BeneficiaryEmail: str | None
+    Amount: Optional[int]
+    Currency: Optional[str]
 
     class Config:
         orm_mode = True
