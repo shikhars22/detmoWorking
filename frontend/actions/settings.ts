@@ -167,6 +167,7 @@ export async function getCompanyUsers(): Promise<{
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        next: { tags: ["company-users"] },
       },
     );
 
@@ -309,4 +310,8 @@ export async function deleteUser(
     console.error(error);
   }
   return null;
+}
+
+export async function revalidateCompanyUsers() {
+  revalidateTag("company-users");
 }
