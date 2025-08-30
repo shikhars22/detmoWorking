@@ -16,6 +16,7 @@ import { useUser } from "@clerk/nextjs";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { revalidateCompanyUsers } from "@/actions/settings";
 
 export const ListItem = (props: StackProps) => {
   const { children, ...rest } = props;
@@ -108,6 +109,8 @@ export function Pricing() {
         throw new Error(errorData.detail || "Payment creation failed");
       }
 
+      await revalidateCompanyUsers();
+
       const jsonData = await response.json();
       const data = jsonData.subscription;
       toast.success("Redirecting to payment...", { id: paymentToast });
@@ -129,6 +132,8 @@ export function Pricing() {
               `Payment successful! ID: ${response.razorpay_payment_id}`,
               { duration: 5000 },
             );
+
+            revalidateCompanyUsers();
 
             router.push(next);
           },
@@ -156,6 +161,8 @@ export function Pricing() {
             )
           ) {
             toast.success(`Subscription already paid for!`, { duration: 5000 });
+
+            revalidateCompanyUsers();
           }
           toast.error(`Payment failed: ${response.error.description}`);
         });

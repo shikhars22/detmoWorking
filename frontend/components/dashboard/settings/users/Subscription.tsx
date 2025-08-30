@@ -13,6 +13,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { revalidateCompanyUsers } from "@/actions/settings";
 
 const Subscription = ({ data }: { data: any }) => {
   const router = useRouter();
@@ -49,6 +50,8 @@ const Subscription = ({ data }: { data: any }) => {
           (await response.text()) || "Failed to cancel subscription",
         );
       }
+
+      await revalidateCompanyUsers();
 
       setIsOpen(false);
       // Refresh the page to update the UI
