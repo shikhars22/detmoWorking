@@ -1,6 +1,6 @@
 "use client";
 
-import { format } from "date-fns";
+import { addYears, format } from "date-fns";
 import { CalendarDays, ChevronDown } from "lucide-react";
 import * as React from "react";
 
@@ -82,7 +82,11 @@ export default function DatePickerComponent({
           initialFocus
           captionLayout="dropdown-buttons"
           fromYear={1950}
-          toYear={new Date().getFullYear()}
+          toYear={
+            isProject
+              ? addYears(new Date(), 50).getFullYear()
+              : new Date().getFullYear()
+          }
           isEndDate={dateName === "endDate"}
           isProject={isProject}
         />
