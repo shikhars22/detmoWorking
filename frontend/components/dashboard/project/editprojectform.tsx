@@ -69,7 +69,7 @@ export default function Createprojectform({
         endDate: project.EndDate,
       }));
     }
-  }, [project, setParams]);
+  }, []);
 
   const router = useRouter();
   const [sourcingTeam, setSourcingTeam] = useState(false);
